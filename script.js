@@ -1,5 +1,5 @@
 function setCookie(name, value) {
-  document.cookie = `${name}=${value};
+  document.cookie = `${name}=${value}; path=/`;
 }
 
 function getCookie(name) {
