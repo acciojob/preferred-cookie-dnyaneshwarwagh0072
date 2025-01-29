@@ -1,4 +1,4 @@
-function setCookie(name, value, days) {
+function setCookie(name, value) {
   document.cookie = `${name}=${value};
 }
 
