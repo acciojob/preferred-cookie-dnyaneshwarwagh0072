@@ -1,39 +1,31 @@
-function setCookie(name, value) {
-  document.cookie = `${name}=${value}; path=/`;
-}
+ document.addEventListener("DOMContentLoaded", function() {
+            function getCookie(name) {
+                let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+                return match ? match[2] : null;
+            }
+            
+            let savedFontSize = getCookie("fontsize");
+            let savedFontColor = getCookie("fontcolor");
 
-function getCookie(name) {
-  const cookies = document.cookie.split();
-  for (const cookie of cookies) {
-    const [key, value] = cookie.split();
-    if (key === name) return value;
-  }
-  return null;
-}
+            if (savedFontSize) {
+                document.documentElement.style.setProperty('--fontsize', savedFontSize + 'px');
+                document.getElementById("fontsize").value = savedFontSize;
+            }
+            
+            if (savedFontColor) {
+                document.documentElement.style.setProperty('--fontcolor', savedFontColor);
+                document.getElementById("fontcolor").value = savedFontColor;
+            }
 
-function applyPreferences() {
-  const fontSize = getCookie('fontSize') || '16';
-  const fontColor = getCookie('fontColor') || '#000000';
+            document.getElementById("customizationForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+                let fontSize = document.getElementById("fontsize").value;
+                let fontColor = document.getElementById("fontcolor").value;
 
-  document.documentElement.style.setProperty('--fontsize', `${fontSize}px`);
-  document.documentElement.style.setProperty('--fontcolor', fontColor);
+                document.cookie = `fontsize=${fontSize}; path=/; max-age=31536000`;
+                document.cookie = `fontcolor=${fontColor}; path=/; max-age=31536000`;
 
-  document.getElementById('fontsize').value = fontSize;
-  document.getElementById('fontcolor').value = fontColor;
-}
-
-document.querySelector('form').addEventListener('submit', (event) => {
-  event.preventDefault();
-
-  const fontSize = document.getElementById('fontsize').value;
-  const fontColor = document.getElementById('fontcolor').value;
-
-  setCookie('fontSize', fontSize, 365);
-  setCookie('fontColor', fontColor, 365);
-
-  applyPreferences();
-
-  alert('Preferences saved!');
-});
-
-document.addEventListener('DOMContentLoaded', applyPreferences);
+                document.documentElement.style.setProperty('--fontsize', fontSize + 'px');
+                document.documentElement.style.setProperty('--fontcolor', fontColor);
+            });
+        });

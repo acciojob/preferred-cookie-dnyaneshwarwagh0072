@@ -1,9 +1,18 @@
 :root {
-  --fontsize: 16px;
-  --fontcolor: #000000;
-}
-
-body {
-  font-size: var(--fontsize);
-  color: var(--fontcolor);
-}
+            --fontsize: 16px;
+            --fontcolor: #000000;
+        }
+        body {
+            font-size: var(--fontsize);
+            color: var(--fontcolor);
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+        }
+        label, input {
+            margin-bottom: 10px;
+        }
